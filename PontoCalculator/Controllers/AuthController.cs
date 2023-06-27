@@ -126,64 +126,12 @@ namespace PontoCalculator.Controllers
             return Ok("Password successfully updated!");
         }
 
+        [HttpGet("is-valid-password-token")]
+        public IActionResult isValidPasswordToken(string passwordResetToken)
+        {
+            User user = _repository.GetByPasswordResetToken(passwordResetToken);
+            if (user == null) return BadRequest("Invalid password reset token, please request a new reset");
+            return Ok("success");
+        }
     }
 }
-
-        //public static User user = new User();
-
-//private readonly IConfiguration _configuration;
-
-//public AuthController(IConfiguration configuration)
-//{
-//    _configuration = configuration;
-//}
-
-//[HttpPost("register")]
-//public ActionResult<User> Register(UserDto request)
-//{
-//    string passwordHash
-//        = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-//    user.Email = request.Email;
-//    user.PasswordHash = passwordHash;
-
-//    return Ok(user);
-
-//}
-
-//[HttpPost("login")]
-//public ActionResult<User> Login(UserDto request)
-//{
-//    if ((user.Email != request.Email) || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-//    {
-//        return BadRequest("Please check your e-mail and password then try again");
-//    }
-
-//    string token = CreateToken(user);
-
-//    return Ok(token);
-
-//}
-
-//private String CreateToken(User user)
-//{
-//    List<Claim> claims = new List<Claim> {
-//        new Claim(ClaimTypes.Email, user.Email)
-//    };
-
-//    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!));
-
-//    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-//    var token = new JwtSecurityToken(
-//            claims: claims,
-//            expires: DateTime.Now.AddMinutes(5),
-//            signingCredentials: creds
-//        ) ;
-
-//    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-//    return jwt;
-//}
-//    }
-//}
