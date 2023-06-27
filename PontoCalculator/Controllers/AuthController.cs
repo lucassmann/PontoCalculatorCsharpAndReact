@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using PontoCalculator.Data;
 using PontoCalculator.Dtos;
 using PontoCalculator.Helpers;
+using PontoCalculator.Helpers.EmailService;
 using PontoCalculator.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,10 +20,12 @@ namespace PontoCalculator.Controllers
     public class AuthController : Controller
     {
         private readonly IUserRepository _repository;
+        private readonly IEmailService _emailService;
         private readonly JwtService _jwtService;
-        public AuthController(IUserRepository repository, JwtService jwtService)
+        public AuthController(IUserRepository repository, JwtService jwtService, IEmailService emailService)
         {
             _repository = repository;
+            _emailService = emailService;
             _jwtService = jwtService;
         }
 
@@ -96,9 +99,14 @@ namespace PontoCalculator.Controllers
             user.PasswordResetToken = CreateRandomToken();
             user.PasswordResetTokenExpires = DateTime.UtcNow.AddDays(1);
             _repository.Update(user);
+            EmailDto emailDto = new EmailDto();
+            emailDto.To = user.Email;
+            emailDto.Subject = "Password Recovery";
+            emailDto.Body = user.PasswordResetToken;
+            _emailService.SendEmail(emailDto);
             return Ok(new
             {
-                message = "You may now reset your password",
+                message = "You may now reset your password, please check your email inbox",
             });
         }
 
