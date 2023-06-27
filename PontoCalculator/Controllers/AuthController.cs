@@ -96,8 +96,28 @@ namespace PontoCalculator.Controllers
             user.PasswordResetToken = CreateRandomToken();
             user.PasswordResetTokenExpires = DateTime.UtcNow.AddDays(1);
             _repository.Update(user);
-            return Ok("You may now reset your password");
+            return Ok(new
+            {
+                message = "You may now reset your password",
+            });
         }
+
+        [HttpPost("reset-password")]
+        public IActionResult ResetPassword(ResetPasswordDto dto)
+        {
+            var user = _repository.GetByPasswordResetToken(dto.PasswordResetToken);
+            if (user == null || user.PasswordResetTokenExpires < DateTime.UtcNow)
+            {
+                return BadRequest("Invalid password reset token, please request a new reset");
+            }
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(dto.newPassword);
+            user.PasswordResetToken = null;
+            user.PasswordResetTokenExpires = null;
+            _repository.Update(user);
+            return Ok("Password successfully updated!");
+        }
+
     }
 }
 

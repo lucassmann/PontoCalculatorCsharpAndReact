@@ -7,6 +7,7 @@ namespace PontoCalculator.Data
         User Create(User user);
         User GetByEmail(string email);
         User GetById(int Id);
+        User GetByPasswordResetToken(string passwordResetToken);
 
         void Update(User user);
     }

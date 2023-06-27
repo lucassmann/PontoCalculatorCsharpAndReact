@@ -25,6 +25,11 @@ namespace PontoCalculator.Data
             return _context.Users.FirstOrDefault(x => x.Id == Id);
         }
 
+        public User GetByPasswordResetToken(string passwordResetToken)
+        {
+            return _context.Users.FirstOrDefault(x => x.PasswordResetToken == passwordResetToken);
+        }
+
         public void Update(User user)
         {
             _context.Users.Update(user);
