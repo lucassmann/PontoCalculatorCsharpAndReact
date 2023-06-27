@@ -14,7 +14,7 @@ using System.Text;
 
 namespace PontoCalculator.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("auth/[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
