@@ -15,7 +15,7 @@ using System.Text;
 
 namespace PontoCalculator.Controllers
 {
-    [Route("auth/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
@@ -102,7 +102,7 @@ namespace PontoCalculator.Controllers
             EmailDto emailDto = new EmailDto();
             emailDto.To = user.Email;
             emailDto.Subject = "Password Recovery";
-            emailDto.Body = user.PasswordResetToken;
+            emailDto.Link =  $"http://localhost:3000/nova-senha/{user.PasswordResetToken}";
             _emailService.SendEmail(emailDto);
             return Ok(new
             {
@@ -126,8 +126,8 @@ namespace PontoCalculator.Controllers
             return Ok("Password successfully updated!");
         }
 
-        [HttpGet("is-valid-password-token")]
-        public IActionResult isValidPasswordToken(string passwordResetToken)
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken(string passwordResetToken)
         {
             User user = _repository.GetByPasswordResetToken(passwordResetToken);
             if (user == null) return BadRequest("Invalid password reset token, please request a new reset");
