@@ -17,7 +17,7 @@ export default function Home() {
       setMessage(content.name + ", ");
       setAuth(true);
       if (!content.name) {
-        setMessage("Anônimo, ");
+        setMessage("Visitante, ");
         setAuth(false);
       }
     })();
@@ -48,10 +48,15 @@ export default function Home() {
   if (!auth) {
     authOptions = (
       <>
-        <div>
-          <Link href="/login">Entre em sua conta!</Link>
+        <div className={styles.container}>
+          <Link href="/login">
+            <button className={styles.button}>Entre em sua conta!</button></Link>
           <br /><br />
-          <Link href="/cadastro">Ainda não possui conta?</Link>
+          <Link href="/cadastro">
+            <button className={styles.button}>
+            Ainda não possui conta?
+            </button>
+            </Link>
         </div>
       </>
     );
@@ -66,17 +71,4 @@ export default function Home() {
       {authOptions}
     </section>
   );
-  // const [data, setData] = useState(null)
-  // const [isLoading, setLoading] = useState(false)
-
-  // if (isLoading) return <p>Loading...</p>
-  // if (!data || data.status !== 200)
-  // console.log(data)
-  // return (
-  //   <section className={styles.container}>
-  //     <h1>
-  //       {data.name}, bem-vindo(a) ao <span>Ponto Calculator</span>
-  //     </h1>
-  //   </section>
-  // );
 }

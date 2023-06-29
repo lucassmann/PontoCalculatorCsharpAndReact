@@ -48,7 +48,7 @@ type="password" placeholder="Sua senha"
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit" className={styles.button}>Submit
+          <button type="submit" className={styles.button}>Criar
           </button>
           <Link href="/login">Ja possui uma conta?</Link>
 

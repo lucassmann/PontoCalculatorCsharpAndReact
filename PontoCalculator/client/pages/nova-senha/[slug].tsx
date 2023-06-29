@@ -2,28 +2,12 @@ import Link from "next/link";
 import styles from "../../styles/login.module.css";
 import LoginCard from "../../src/components/loginCard/loginCard";
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 
 export default function NovaSenha ({ token })  {
   const [password, setPassword] = useState("");
   const router = useRouter();
-  console.log({token});
-//   useEffect(() => {
-//     if (!router.isReady) return;
-//     if (!router.query.token) {
-//       router.push("/")
-//     }
-//     const validateToken = async () => {
-//         const token = router.query.token;
-//         const response = await fetch(`http://localhost:3000/api/Auth/validate-token?passwordResetToken=${token}`, {
-//             method: "GET",
-//         });
-//         if (response.status !== 200) {
-//             router.push("/error")
-//         }
-//     }
-//   }, [router.isReady])
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
