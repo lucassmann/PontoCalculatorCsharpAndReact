@@ -6,9 +6,15 @@ namespace PontoCalculator.Helpers
 {
     public class JwtService
     {
-        private string secureKey = "senha super hiper mega ultra secreta e segura";
+        private readonly IConfiguration _config;
+            
+        public JwtService(IConfiguration config)
+        {
+            _config = config;
+        }
         public string Generate(int id)
         {
+            var secureKey = _config.GetSection("JwtKey").Value;
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
             var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
             var header = new JwtHeader(credentials);
@@ -18,6 +24,7 @@ namespace PontoCalculator.Helpers
         }
         public JwtSecurityToken Verify(string jwt)
         {
+            var secureKey = _config.GetSection("JwtKey").Value;
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secureKey);
             tokenHandler.ValidateToken(jwt, new TokenValidationParameters
