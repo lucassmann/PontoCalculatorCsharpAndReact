@@ -3,6 +3,7 @@ import styles from "../styles/login.module.css";
 import LoginCard from "../src/components/loginCard/loginCard";
 import React, { SyntheticEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { cookies } from "next/dist/client/components/headers";
 
 
 const Login = () => {
@@ -15,12 +16,13 @@ const Login = () => {
     await fetch("http://localhost:5127/api/Auth/login", {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
       body: JSON.stringify({
         email,
         password,
-      }),
-    });
-    await router.push("/");
+      }
+      ),});
+     await router.push("/");
   };
 
     return (
