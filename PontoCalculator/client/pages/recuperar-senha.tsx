@@ -22,7 +22,7 @@ const RecuperarSenha = () => {
             <LoginCard title="Recupere sua senha">
               <form className={styles.form} onSubmit={handleSubmit}>  
                 <input className={styles.input} type="email" placeholder="Seu e-mail" required onChange={e => setEmail(e.target.value)}/>
-                <button type="submit" className={styles.button}>Entrar</button>
+                <button type="submit" className={styles.button}>Enviar</button>
                 <Link href="/cadastro">Ainda não possui conta?</Link>
               </form>
             </LoginCard>
