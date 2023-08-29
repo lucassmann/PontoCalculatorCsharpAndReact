@@ -1,0 +1,29 @@
+version: '3.4'
+
+networks:
+  pontocalculatornetwork:
+
+services:
+  pontocalculatorDB:
+    container_name: pontocalculatorDB
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+    - 8002:1433
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_SA_PASSWORD=S3nh4S3cr3t4!
+    networks:
+    - pontocalculatornetwork
+
+  pontocalculator:
+    container_name: pontocalculator
+    ports:
+    - 8001:80
+    image: ${DOCKER_REGISTRY-}pontocalculator
+    build:
+      context: .
+      dockerfile: PontoCalculator/Dockerfile
+    depends_on:
+    - pontocalculatorDB 
+    networks:
+    - pontocalculatornetwork
