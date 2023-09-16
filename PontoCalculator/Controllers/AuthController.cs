@@ -55,7 +55,7 @@ namespace PontoCalculator.Controllers
                 HttpOnly = true
             });
 
-            return Ok(new { message = "success" });
+            return Ok(new { message = "success", jwt = jwt });
 
         }
 
