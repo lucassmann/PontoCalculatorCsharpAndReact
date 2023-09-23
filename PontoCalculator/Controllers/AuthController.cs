@@ -102,7 +102,7 @@ namespace PontoCalculator.Controllers
             EmailDto emailDto = new EmailDto();
             emailDto.To = user.Email;
             emailDto.Subject = "Password Recovery";
-            emailDto.Link =  $"http://localhost:3000/nova-senha/{user.PasswordResetToken}";
+            emailDto.Token =  user.PasswordResetToken;
             _emailService.SendEmail(emailDto);
             return Ok(new
             {
