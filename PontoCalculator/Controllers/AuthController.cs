@@ -32,6 +32,9 @@ namespace PontoCalculator.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
+            if (_repository.GetByEmail(dto.Email) != null) {
+                return BadRequest("You already have an account!");
+            }
             var user = new User
             {
                 Name = dto.Name,
