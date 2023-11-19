@@ -32,6 +32,10 @@ namespace PontoCalculator.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
+            if (_repository.GetByEmail(dto.Email) != null)
+            {
+                return BadRequest("You already have an account!");
+            }
             var user = new User
             {
                 Name = dto.Name,
@@ -55,7 +59,7 @@ namespace PontoCalculator.Controllers
                 HttpOnly = true
             });
 
-            return Ok(new { message = "success" });
+            return Ok(new { message = "success", jwt = jwt });
 
         }
 
@@ -102,7 +106,7 @@ namespace PontoCalculator.Controllers
             EmailDto emailDto = new EmailDto();
             emailDto.To = user.Email;
             emailDto.Subject = "Password Recovery";
-            emailDto.Link =  $"http://localhost:3000/nova-senha/{user.PasswordResetToken}";
+            emailDto.Token = user.PasswordResetToken;
             _emailService.SendEmail(emailDto);
             return Ok(new
             {
