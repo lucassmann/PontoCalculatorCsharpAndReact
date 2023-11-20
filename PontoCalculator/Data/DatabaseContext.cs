@@ -5,9 +5,9 @@ using PontoCalculator.Models;
 
 namespace PontoCalculator.Data
 {
-    public class UserContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public UserContext(DbContextOptions<UserContext> options) : base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             try
             {
@@ -31,6 +31,8 @@ namespace PontoCalculator.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Ponto> Pontos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,9 +11,9 @@ using PontoCalculator.Data;
 
 namespace PontoCalculator.Migrations
 {
-    [DbContext(typeof(UserContext))]
-    [Migration("20230627175338_ModifyUsersTable")]
-    partial class ModifyUsersTable
+    [DbContext(typeof(DatabaseContext))]
+    [Migration("20231120023913_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace PontoCalculator.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PontoCalculator.Models.Ponto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("User_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pontos");
+                });
 
             modelBuilder.Entity("PontoCalculator.Models.User", b =>
                 {

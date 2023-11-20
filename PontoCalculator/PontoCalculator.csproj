@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="pontoCalculatorLocalDb.mdf" />
+    <None Remove="pontoCalculatorLocalDb_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="MailKit" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.9" />
@@ -33,6 +38,7 @@
 
   <ItemGroup>
     <Folder Include="client\components\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
