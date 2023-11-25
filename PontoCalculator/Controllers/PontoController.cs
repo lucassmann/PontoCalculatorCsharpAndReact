@@ -22,12 +22,11 @@ namespace PontoCalculator.Controllers
         }
 
         [HttpPost("ponto")]
-        public IActionResult Register(string type, string? details)
+        public IActionResult Register(string jwt, bool in_out, string? details)
         {
             int userId;
             try
             {
-                var jwt = Request.Cookies["jwt"];
                 var token = _jwtService.Verify(jwt);
                 userId = int.Parse(token.Issuer);
             }
@@ -37,23 +36,22 @@ namespace PontoCalculator.Controllers
             {
                 User_id = userId,
                 DateTime = DateTime.Now,
-                Type = type,
+                In_out = in_out,
                 Details = details
             };
             return Created("Success", _pontoRepository.Create(ponto));
         }
 
         [HttpGet("ponto")]
-        public IActionResult Get(int? pontoId = null, bool? today = null)
+        public IActionResult Get(string jwt, int? pontoId = null, bool? today = null)
         {
             int userId;
             try
             {
-                var jwt = Request.Cookies["jwt"];
                 var token = _jwtService.Verify(jwt);
                 userId = int.Parse(token.Issuer);
             }
-            catch (Exception ex){return Unauthorized("Please login");}
+            catch (Exception ex) { return Unauthorized("Please login"); }
 
             List<Ponto> result = 
                 _pontoRepository.Get(

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PontoCalculator.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace PontoCalculator.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     User_id = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    In_out = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

@@ -36,9 +36,8 @@ namespace PontoCalculator.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("In_out")
+                        .HasColumnType("bit");
 
                     b.Property<int>("User_id")
                         .HasColumnType("int");

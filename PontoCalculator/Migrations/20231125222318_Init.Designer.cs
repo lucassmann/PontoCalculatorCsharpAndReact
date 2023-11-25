@@ -12,8 +12,8 @@ using PontoCalculator.Data;
 namespace PontoCalculator.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231120023913_init")]
-    partial class init
+    [Migration("20231125222318_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +39,8 @@ namespace PontoCalculator.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("In_out")
+                        .HasColumnType("bit");
 
                     b.Property<int>("User_id")
                         .HasColumnType("int");
