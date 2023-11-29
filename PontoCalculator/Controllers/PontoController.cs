@@ -59,9 +59,6 @@ namespace PontoCalculator.Controllers
                     pontoId: pontoId, 
                     today: today);
 
-            if (result.IsNullOrEmpty()) {
-                return NotFound();
-            }
             return Ok(result);
         }
     }
